@@ -5,8 +5,12 @@ mongoose.connect('localhost:27017/alfacamp');
 
 var products = [
     new Subject({
-        name: 'Sabak',
-        topics: ['58c5a491a2fb1919054ebbe8','58c5a491a2fb1919054ebbe9']
+        name: 'Mathematics',
+        topics: [
+            "58e3e9becb1ded2c245c0d71",
+            "58e3eaafb6b5f82c95e42543",
+            "58e3eaafb6b5f82c95e42544"
+        ]
     })
 ];
 
