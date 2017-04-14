@@ -1,0 +1,50 @@
+<h2><a href="/admin/topic"> Back to Topics</a></h2>
+<form method="post" action="/admin/topic/{{topic._id}}">
+    <span>ID: </span>
+    <span style="font-weight:bold">{{topic._id}}</span><br>
+
+    <span>name: </span>
+    <input value="{{topic.name}}" name="name"><br>
+
+    <span>theory: </span>
+    <textarea name="theory" style="width:900px;height:200px">{{topic.theory}}</textarea><br>
+    <span>tests: </span><br>
+    <ul>
+        {{#each topic.tests}}
+            <li>
+                <a href="/admin/test/{{this._id}}/{{../topic._id}}">{{this.question}}</a>
+                <a href="/admin/test/{{this._id}}/del/{{../topic._id}}" style='float:right; margin-left: 10px'>delete</a>
+            </li>
+        {{/each}}
+    </ul>
+
+    <button type="submit" >Update</button>
+    <a href="/admin/topic/{{topic._id}}/del" style="margin-left:20px">Delete this Topic</a> <br>
+</form>
+
+<form method="post" action="/admin/test/{{topic._id}}" style="background-color: yellow;width: 300px">
+    <h2>Add Test</h2>
+    <span>Question: </span>
+    <textarea name="question" style="width: 300px;height: 50px  "></textarea><br>
+    <span>A: </span>
+    <input name="a"><br>
+    <span>B: </span>
+    <input name="b"><br>
+    <span>C: </span>
+    <input name="c"><br>
+    <span>D: </span>
+    <input name="d"><br>
+    <span>Correct: </span>
+    <input name="correct"><br>
+    <button type="submit" >Add Test</button>
+</form>
+<style type="text/css">
+    li{
+        list-style-type: none;
+        background-color: pink;
+        max-width: 900px;
+        padding: 5px;
+        margin: 5px;
+        min-height: 20px;
+    }
+</style>

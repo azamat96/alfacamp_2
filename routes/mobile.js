@@ -44,20 +44,26 @@ router.post('/user/login', function (req, res, next) {
     });
 });
 
-router.use(passport.authenticate('bearer', {session: false}));
+router.get('/fail', function (req, res, next) {
+    res.status(404).send({success: false, msg: 'User not exist'});
+});
 
-router.get('/subjects', function (req, res, next) {
+router.use(passport.authenticate('bearer', {
+    failureRedirect: '/api/fail',
+    session: false}));
+
+router.post('/subjects', function (req, res, next) {
     Subject.find({}).populate('topics', 'name').exec(function (err, subject) {
         if (err) return next(err);
         res.send(subject);
     });
 });
 
-router.get('/test', function (req, res, next) {
-    if (!req.query.topic_id){
+router.post('/test', function (req, res, next) {
+    if (!req.body.topic_id){
         return res.send({success: false, msg: 'Отсутствует некоторые поля'});
     }
-    Topic.findOne({_id: req.query.topic_id}).populate('tests').exec(function (err, topic) {
+    Topic.findOne({_id: req.body.topic_id}).populate('tests').exec(function (err, topic) {
         if (!topic) res.status(404).send({success: false,msg: 'Неправильная Topic_id'});
         else {
             res.send(topic.tests);
@@ -65,14 +71,14 @@ router.get('/test', function (req, res, next) {
     });
 });
 
-router.get('/theory', function (req, res, next) {
-    if (!req.query.topic_id){
+router.post('/theory', function (req, res, next) {
+    if (!req.body.topic_id){
         return res.send({success: false, msg: 'Отсутствует некоторые поля'});
     }
-    Topic.findOne({_id: req.query.topic_id}).exec(function (err, topic) {
+    Topic.findOne({_id: req.body.topic_id}).exec(function (err, topic) {
         if (!topic) res.status(404).send({success: false,msg: 'Неправильная Topic_id'});
         else {
-            res.send(topic.theory);
+            res.send({theory: topic.theory});
         }
     });
 });

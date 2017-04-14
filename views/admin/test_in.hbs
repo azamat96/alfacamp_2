@@ -1,0 +1,30 @@
+<h2><a href="/admin/topic/{{tid}}"> Back to Topics</a></h2>
+<form method="post" action="/admin/test/{{test._id}}/{{tid}}">
+    <span>ID: </span>
+    <span style="font-weight:bold">{{test._id}}</span><br>
+
+    <span>Question: </span>
+    <textarea name="question" style="width: 300px;height: 50px">{{test.question}}</textarea><br>
+    <span>A: </span>
+    <input name="a" value="{{test.a}}"><br>
+    <span>B: </span>
+    <input name="b" value="{{test.b}}"><br>
+    <span>C: </span>
+    <input name="c" value="{{test.c}}"><br>
+    <span>D: </span>
+    <input name="d" value="{{test.d}}"><br>
+    <span>Correct: </span>
+    <input name="correct" value="{{test.correct}}"><br>
+    <button type="submit" >Update Test</button>
+    <a href="/admin/test/{{test._id}}/del/{{tid}}" style="margin-left:20px">Delete this Test</a> <br>
+</form>
+
+<style type="text/css">
+    li{
+        list-style-type: none;
+        background-color: pink;
+        width: 400px;
+        padding: 5px;
+        margin: 5px;
+    }
+</style>

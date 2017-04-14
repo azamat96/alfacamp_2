@@ -1,0 +1,31 @@
+<h2><a href="/admin/subject"> Back to Subjects</a></h2>
+<form method="post" action="/admin/subject/{{_id}}">
+    <span>ID: </span>
+    <span style="font-weight:bold">{{_id}}</span><br>
+
+    <span>name: </span>
+    <input value="{{name}}" name="name"><br>
+    <span>topics: </span><br>
+    <ul>
+        {{#each topics}}
+            <li>
+                <a href="/admin/topic/{{this._id}}">{{this.name}}</a>
+                <a href="/admin/topic/{{this._id}}/del/" style='float:right; margin-left: 10px'>delete</a>
+                <a href="/admin/topic/{{this._id}}/del/" style='float:right'>remove from Sub</a>
+            </li>
+        {{/each}}
+    </ul>
+
+    <button type="submit" >Update</button>
+    <a href="/admin/subject/{{_id}}/del" style="margin-left:20px">Delete this Subject</a> <br>
+</form>
+
+<style type="text/css">
+    li{
+        list-style-type: none;
+        background-color: pink;
+        width: 400px;
+        padding: 5px;
+        margin: 5px;
+    }
+</style>

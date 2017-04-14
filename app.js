@@ -12,11 +12,12 @@ require('./config/passport')(passport);
 
 var index = require('./routes/index');
 var mobile = require('./routes/mobile');
+var admin = require('./routes/admin');
 
 var app = express();
 
 // view engine setup
-app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
+//app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
 app.use(logger('dev'));
@@ -49,6 +50,7 @@ require('./routes/web')(web, passport);
 
 app.use('/users', web);
 app.use('/api', mobile);
+app.use('/admin', admin);
 app.use('/', index);
 
 app.set('port', (process.env.PORT || 3000));
