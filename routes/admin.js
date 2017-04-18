@@ -62,17 +62,18 @@ router.get('/subject/:id/del', function (req, res, next) {
 router.get('/topic', function (req, res, next) {
     Topic.find({}).select('name').exec(function (err, topic) {
         if (err) return next(err);
-        res.render('admin/topic', {topic: topic});
+        Subject.find({}).select('name').exec(function (err, subject) {
+            if(err) return next(err);
+            res.render('admin/topic', {topic: topic, subject: subject});
+        });
     });
 });
 
 /*=========INSERT Topic========*/
 router.post('/topic', function (req, res, next) {
-    var topic = new Topic();
-    topic.name = req.body.name;
-    topic.theory = req.body.theory;
-    topic.save(function(err, topic){
+    Topic.addTopic(req, res, next, function (err, subject) {
         if(err) return next(err);
+        console.log(subject);
         res.redirect('/admin/topic');
     });
 });

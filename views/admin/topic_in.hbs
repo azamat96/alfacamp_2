@@ -6,16 +6,23 @@
     <span>name: </span>
     <input value="{{topic.name}}" name="name"><br>
 
+    <span>This topic in Subject: {{topic.subject_id}}</span><br>
+
     <span>theory: </span>
     <textarea name="theory" style="width:900px;height:200px">{{topic.theory}}</textarea><br>
     <span>tests: </span><br>
     <ul>
-        {{#each topic.tests}}
-            <li>
-                <a href="/admin/test/{{this._id}}/{{../topic._id}}">{{this.question}}</a>
-                <a href="/admin/test/{{this._id}}/del/{{../topic._id}}" style='float:right; margin-left: 10px'>delete</a>
-            </li>
-        {{/each}}
+        {{# if topic.tests}}
+            {{#each topic.tests}}
+                <li>
+                    <a href="/admin/test/{{this._id}}/{{../topic._id}}">{{this.question}}</a>
+                    <a href="/admin/test/{{this._id}}/del/{{../topic._id}}" style='float:right; margin-left: 10px'>delete</a>
+                </li>
+            {{/each}}
+        {{else}}
+            <span>No Tests in this Topic</span>
+        {{/if}}
+
     </ul>
 
     <button type="submit" >Update</button>

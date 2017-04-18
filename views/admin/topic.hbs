@@ -1,12 +1,18 @@
 <h2>Topics</h2>
 <div style="background-color: yellow;width:300px" >
     <h3>Add Topic</h3>
-    <form method="post" action="/admin/topic">
+    <form method="post" action="/admin/topic" id="addtopic">
         <div class="form-group">
             <label>Name</label>
             <input type="text" class="form-control" name="name" placeholder="Name"><br>
             <label>Theory</label>
-            <input type="text" class="form-control" name="theory" placeholder="Theory">
+            <input type="text" class="form-control" name="theory" placeholder="Theory"><br>
+            <label>Subject</label>
+            <select name="subject_id" form="addtopic">
+                {{# each subject}}
+                    <option value="{{this._id}}">{{this.name}}</option>
+                {{/each}}
+            </select>
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
     </form>

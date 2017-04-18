@@ -8,7 +8,7 @@ var expressValidator = require('express-validator');
 var passport = require('passport');
 var mongoose = require('mongoose');
 mongoose.connect('localhost:27017/alfacamp');
-require('./config/passport')(passport);
+//require('./config/passport')(passport);
 
 var index = require('./routes/index');
 var mobile = require('./routes/mobile');
@@ -18,6 +18,7 @@ var app = express();
 
 // view engine setup
 //app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
+app.engine('.hbs', expressHbs({extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
 app.use(logger('dev'));
@@ -45,10 +46,10 @@ app.use(expressValidator({
     }
 }));
 
-var web = express.Router();
-require('./routes/web')(web, passport);
+//var web = express.Router();
+//require('./routes/web')(web, passport);
 
-app.use('/users', web);
+//app.use('/users', web);
 app.use('/api', mobile);
 app.use('/admin', admin);
 app.use('/', index);
