@@ -1,0 +1,240 @@
+<html>
+<head>
+    <title>AlphaCamp</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+        <div class="container">
+            <div class="logo">
+                <a href="/" style="text-decoration: none;"><p>AlphaCamp</p></a>
+            </div>
+
+            <div class="button">
+                <span><img src="" width="40px"></span>
+                <span class="menu" id="username"></span>
+                <span class="menu"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                <div class="dropdown-content">
+                    <a href="#">Профиль</a>
+                    <a id="logout">Выйти</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="main">
+        <div class="container">
+            <h1>Добро пожаловать в AlphaCamp!</h1>
+            <h2>Выбрать предмет...</h2>
+        </div>
+
+        <div class="select">
+            {{# each subjects}}
+                <a href="/test/{{this._id}}" style="text-decoration:none"><div class="math">
+                    <img src="img/calculator.svg" width="70px">
+                    <p>{{this.name}}</p>
+                </div></a>
+            {{/each}}
+            <!--<a href="#" style="text-decoration:none"><div class="physics">-->
+                <!--<img src="img/blackboard.svg" width="70px">-->
+                <!--<p>Физика</p>-->
+            <!--</div></a>-->
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="/js/secondary.js"></script>
+<style type="text/css">
+
+    @font-face {
+        font-family: 'Lobster';
+        src: url('/font-awesome/3952.ttf')  format('truetype');
+    }
+
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure,
+    footer, header, hgroup, menu, nav, section {
+        display: block;
+    }
+    body {
+        line-height: 1;
+        font-family: arial;
+    }
+    ol, ul {
+        list-style: none;
+    }
+    blockquote, q {
+        quotes: none;
+    }
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+        content: '';
+        content: none;
+    }
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .container{
+        width: 1000px;
+        margin: 0 auto;
+    }
+
+    #header{
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
+        color: #fff;
+    }
+
+    .main{
+        background: #fff url(img/mountain.jpeg) center no-repeat;
+        height: 100vh;
+        background-size: cover;
+        min-width: 320px;
+        text-align: center;
+        color: #fff;
+        line-height: 55px;
+
+    }
+    .button{
+        float: right;
+        display: table;
+    }
+
+    .logo p{
+        font-family: Lobster;
+        font-size: 40px;
+        color: #fff;
+    }
+    .logo{
+        float: left;
+        display: flex;
+        justify-content: space-between;
+        width: 250px
+    }
+
+    .button img {
+        vertical-align: middle;
+        display: table-cell;
+
+    }
+    .button span {
+        vertical-align: middle;
+        display: table-cell;
+        padding-left: 10px;
+        font-size: 20px;
+        cursor: pointer;
+        padding-bottom: 10px;
+    }
+
+
+    .logo, .button{
+        padding-top: 30px;
+    }
+
+    .main h1{
+        font-size: 44px;
+        padding-top: 180px;
+    }
+
+    .main h2{
+        font-size: 40px;
+    }
+
+    .select{
+        display: flex;
+        justify-content: space-between;
+        width: 480px;
+        margin: 0 auto;
+        padding-top: 50px;
+    }
+
+    .math{
+        width: 200px;
+        height: 200px;
+        background-color: rgba(255,255,255,0.2);
+        margin: 0 auto;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .math p, .physics p{
+        color: #fff;
+        font-size: 20px;
+    }
+
+    .math img, .physics img{
+        padding-top: 50px;
+    }
+    .math:hover, .physics:hover{
+        background-color: rgba(255,255,255,0.4);
+
+    }
+    .physics{
+        width: 200px;
+        height: 200px;
+        background-color: rgba(255,255,255,0.2);
+        margin: 0 auto;
+        border-radius: 10px;
+        cursor: pointer;
+
+    }
+
+    .button {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        border-radius: 10px;
+    }
+
+    .dropdown-content a {
+        color: #666666;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        font-size: 15px;
+
+    }
+
+    .dropdown-content a:hover {background-color: #e6e6e6;border-radius: 10px;}
+
+    .button:hover .dropdown-content {
+        display: block;
+    }
+</style>

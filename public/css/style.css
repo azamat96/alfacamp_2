@@ -1,87 +1,453 @@
-/* Space out content a bit */
+
+@font-face {
+    font-family: 'Lobster';
+    src: url('../font-awesome/3952.ttf')  format('truetype');
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+	line-height: 1;
+	font-family: arial;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-right: 15px;
-  padding-left: 15px;
+.container{
+	width: 1000px;
+	margin: 0 auto;
 }
 
-/* Custom page header */
-.header {
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e5e5e5;
-}
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
+.container_2{
+	width: 750px;
+	margin: 0 auto;
 }
 
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+
+#header{
+	position: absolute;
+	left: 0;
+	right: 0;
+	width: 100%;
+	color: #fff;
 }
 
-/* Customize container */
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
+.logo{
+	float: left;
+	display: flex;
+	justify-content: space-between;	
+	width: 250px
 }
-.container-narrow > hr {
-  margin: 30px 0;
+.logo p {
+	font-family: Lobster;
+	padding-top: 48px;
+	font-size: 34px;
+	color: #fff;
+
 }
 
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-}
-.jumbotron .btn {
-  padding: 14px 24px;
-  font-size: 21px;
+.logo img{
+	padding-top: 20px
 }
 
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-}
-.marketing p + h4 {
-  margin-top: 28px;
+.button2{
+	float: right;
+	margin-top: 40px;
+	background-color: #fff;
+	color: #ffa500;
+	cursor: pointer;
+	width: 110px;
+	line-height: 48px;
+	border-radius: 50px;
+	height: 48px;
+	display: block;
+	text-align: center;
+	font-weight: bold;
+
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-right: 0;
-    padding-left: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+.main{
+	background: #fff url(../img/main.jpeg) center no-repeat;
+	height: 65vh;
+	background-size: cover;
+	min-width: 320px; 
+	text-align: center;
+	color: #fff;
+	padding-top: 250px;
+	}
+
+.main h1 {
+	font-size: 50px;
 }
 
-.page-header{
-  margin-top:0;
+.main span{
+	background-color: #ffa500;
+	color: #fff ;
+	cursor: pointer;
+	line-height: 45px;
+	border-radius: 50px;
+	height: 45px;
+	text-align: center;
+	font-weight: bold;
+	margin: 0 auto;
+	font-size: 18px;
+	padding: 12 30
 }
 
-footer{
-  margin-top:40px;
+.interesting_lesson{
+	background-color: #f2f2f2;
+	padding: 50px;
+}
+
+
+.owl img{
+	width: 250px;
+}
+
+.couple{
+	display: flex;
+	justify-content: space-between;	
+}
+
+.text{
+	padding-top: 30px;
+}
+.text h3{
+	font-size: 24px;
+	color: #333333;
+}
+
+.text p {
+	font-size: 18px;
+	color: #999999;
+	padding-top: 15px;
+	line-height: 20px;
+}
+
+.obisnenie{
+	margin: 0 auto;
+	padding: 50px 0;
+}
+
+.container3{
+	margin: 0 auto;
+	width: 900px;
+}
+
+.item{
+	display: flex;
+	justify-content: space-between;	
+}
+
+.text1, .text2{
+	padding-top: 50px;
+	line-height: 20px;
+	color: #808080;
+	font-size: 18px;
+}
+
+.image{
+	padding-top: 30px;
+}
+
+.for_pupil{
+	background-color: #f2f2f2;
+	padding: 30px 0;
+	color: #000;
+}
+
+.container4{
+	margin: 0 auto;
+	width: 800px;
+}
+
+
+
+.pupil_student h3{
+	font-size: 24px;
+	color: #333333;
+	padding-top: 40px;
+}
+
+.pupil_student p {
+	font-size: 18px;
+	color: #999999;
+	line-height: 20px;
+	padding-bottom: 15px;
+}
+
+.footer{
+	background-color: #000033;
+	padding: 40px 0;
+	text-align: center;
+}
+
+.container5{
+	margin: 0 auto;
+	width: 800px;
+}
+
+.input{
+	display: flex;
+	justify-content: space-between;	
+	width: 90%;
+	margin: 0 auto
+}
+.input1 input, .input2 input{
+	background: #fff;
+	padding: 15px 20px;
+	width: 250px;
+	box-shadow: none;
+	font-size: 18px;
+	color: #8d9198;
+	height: 50px;
+	border:1px solid #ccc;
+}
+
+.otpravit span{
+	background-color: #ffa500;
+	color: #fff ;
+	cursor: pointer;
+	width: 160px;
+	line-height: 45px;
+	border-radius: 50px;
+	height: 45px;
+	display: block;
+	text-align: center;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.footer h1{
+	font-size: 40px;
+	padding-bottom:50px;
+}
+
+.icons{
+	padding-top: 40px;
+	font-size: 24px;
+}
+
+.fa{
+	width: 40px;
+	color: #fff;
+}
+
+.fa:hover{
+	color: #ffa500;
+}
+
+.sign{
+	width: 450px;
+	height: 450px;
+	background-color: #fff;
+	z-index: 6;
+	display: none;
+	position: fixed;
+	top: 100px;
+    left: 450px;
+    
+}
+
+.regist{
+	width: 450px;
+	height: 450px;
+	background-color: #fff;
+	z-index: 6;
+	display:none;
+	position: fixed;
+	top: 100px;
+    left: 450px;
+    
+}
+
+#background{
+	width: 100%;
+	height: 100%;
+	display: none;
+	position: fixed;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 5;
+    top: -1px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.sign h1{
+ 	color: #000;
+ 	font-size: 24px;
+ 	text-align: center;
+ 	padding-top: 90px;
+ 	padding-right: 50px;
+ 	color: #999999;
+ 	letter-spacing: 1px;
+}
+
+.sign input{
+	height: 35px;
+	border-radius: 30px;
+	border: 1px solid #C8C8C8;
+	margin-top: 20px; 
+	padding-left: 10px;
+	color: #999999;
+	font-size: px;
+}
+
+.sign h2{
+	border-radius: 30px;
+	border: 1px solid #C8C8C8;
+	margin-top: 20px;
+	background-color: #800080;
+	cursor: pointer; 
+	width: 175px;
+	line-height: 35px;
+	height: 35px;
+	margin: 0 auto;
+	margin-top: 5px;
+	font-size: 17px;
+}
+
+.sign h3{
+	font-size: 13px;
+	color: #999999;
+	text-align: center;
+	cursor: pointer;
+	width: 150px;
+	margin: 20 auto
+}
+
+.sign h3:hover{
+	text-decoration: underline;
+}
+
+.regist h1{
+ 	color: #000;
+ 	font-size: 22px;
+ 	text-align: center;
+ 	padding-top: 75px;
+ 	padding-right: 30px;
+ 	color: #999999;
+ 	letter-spacing: 1px;
+}
+
+
+.regist input{
+	height: 35px;
+	border-radius: 30px;
+	border: 1px solid #C8C8C8;
+	margin-top: 20px; 
+	padding-left: 10px;
+	color: #999999;
+	font-size: px;
+}
+
+.regist h2{
+	border-radius: 30px;
+	border: 1px solid #C8C8C8;
+	margin-top: 20px;
+	background-color: #800080;
+	cursor: pointer; 
+	width: 175px;
+	line-height: 35px;
+	height: 35px;
+	margin: 0 auto;
+	margin-top: 5px;
+	font-size: 15px;
+}
+
+.regist h3{
+	font-size: 13px;
+	color: #999999;
+	text-align: center;
+	cursor: pointer;
+	width: 150px;
+	margin: 20 auto
+}
+
+.regist h3:hover{
+	text-decoration: underline;
+}
+
+/*==========DROP DOWN===========*/
+.button{
+	float: right;
+	display: table;
+	position: relative;
+	display: inline-block;
+}
+
+.button img {
+	vertical-align: middle;
+	display: table-cell;
+
+}
+.button span {
+	vertical-align: middle;
+	display: table-cell;
+	padding-left: 10px;
+	font-size: 20px;
+	cursor: pointer;
+	padding-bottom: 10px;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+	border-radius: 10px;
+}
+
+.dropdown-content a {
+	color: #666666;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	font-size: 15px;
+
+}
+
+.dropdown-content a:hover {background-color: #e6e6e6;border-radius: 10px;}
+
+.button:hover .dropdown-content {
+	display: block;
 }

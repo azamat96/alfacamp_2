@@ -45,3 +45,65 @@ module.exports.comparePassword = function (candidatePassword, hash, callback) {
       callback(null, isMatch);
    });
 };
+
+var insertTopic = function(user, i, top_id, score) {
+    user.subjects[i].topics.push({topic: top_id, score: parseInt(score)});
+    user.subjects[i].sum = parseInt(user.subjects[i].sum)+parseInt(score);
+    user.save(function (err, user) {
+        if(err) return false;
+        return true;
+    });
+};
+
+module.exports.addScore = function (user_id, sub_id, top_id, score, callback) {
+    User.findOne({
+        "_id": user_id,
+        "subjects":{ $elemMatch: {"subject": sub_id}}
+    }, function (err, user) {
+        if (err) return callback(err);
+        if (user != undefined && user != null) {
+            for(var i =0;i<user.subjects.length;i++){
+                if(user.subjects[i].subject==sub_id){
+                    for(var j =0;j<user.subjects[i].topics.length;j++){
+                        if(user.subjects[i].topics[j].topic==top_id) {
+                            if (user.subjects[i].topics[j].score < score) {
+                                user.subjects[i].sum = parseInt(user.subjects[i].sum)-parseInt(user.subjects[i].topics[j].score);
+                                user.subjects[i].sum =parseInt(user.subjects[i].sum)+ parseInt(score);
+                                user.subjects[i].topics[j].score = parseInt(score);
+                                user.save(function (err, user) {
+                                    if (err) return callback(err);
+                                    return callback(null, user);
+                                });
+                            }else {
+                                return callback(null, user);
+                            }
+                            return;
+                            break;
+                        }
+                        if(j==user.subjects[i].topics.length-1){
+                            if(insertTopic(user, i, top_id, score)){
+                                return callback(null, user);
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            User.findByIdAndUpdate(
+                user_id,
+                {
+                    $push: {
+                        "subjects": {
+                            subject: sub_id,
+                            sum: score,
+                            topics: {topic: top_id, score: score}
+                        }
+                    }
+                },
+                {safe: true, upsert: true}, function (err, user) {
+                    if (err) return callback(err);
+                    return callback(null, user);
+                });
+        }
+    });
+};

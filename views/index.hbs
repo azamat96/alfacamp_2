@@ -1,2 +1,134 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<html>
+<head>
+    <title>AlphaCamp</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="header">
+        <div class="container">
+            <div class="logo">
+                <a href="/"><img src="img/alphacamp.png" width="70px"></a>
+                <a href="/" style="text-decoration: none;"><p>AlphaCamp</p></a>
+            </div>
+            {{# if user.uid}}
+                <div class="button">
+                    <span><img src="{{user.image_path}}" width="40px"></span>
+                    <span class="menu">{{user.username}}</span>
+                    <span class-="menu"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                    <div class="dropdown-content">
+                        <a href="#">Профиль</a>
+                        <a href="#">Выйти</a>
+                    </div>
+                </div>
+            {{else}}
+                <div class="button2" >
+                    <span>Войти</span>
+                </div>
+            {{/if}}
+        </div>
+        <div class="main">
+            <div class="container">
+                <h1>Изучайте с нами математические задачи<br>на английском языке</h1>
+                <br>
+                <span id="nachat">Начать</span>
+            </div>
+
+            <form class="sign">
+                <h1>Войти</h1>
+                <p id="sign_err" style="color:red"></p>
+                <input id="sign_email" type="text" placeholder="Email"><br>
+                <input id="sign_password" type="password" placeholder="Пароль"><br><br>
+                <h2 id="sign" type="submit">Войти</h2>
+                <h3 id="click">Нет аккаунта? Создать</h3>
+            </form>
+
+            <div class="regist">
+                <h1>Регистрация</h1>
+                <p id="signup_err" style="color:red"></p>
+                <input type="text" placeholder="Имя" id="signup_username"><br>
+                <input type="email" placeholder="Email" id="signup_email"><br>
+                <input type="password" placeholder="Пароль" id="signup_password"><br><br>
+                <h2 id="signup">Регистрация</h2>
+                <h3 id="click2">Уже участник? Войти</h3>
+            </div>
+
+            <div id="background"></div>
+        </div>
+
+        <div class="interesting_lesson">
+            <div class="container_2">
+                <div class="couple">
+                    <div class="owl">
+                        <img src="img/owl.png">
+                    </div>
+                    <div class="text">
+                        <h3>Лучший способ выучить задачи</h3>
+                        <p>Учиться с AlphaCamp весело и интересно. Повышайте<br>свой уровень. Наши короткие уроки действительно<br>работают, и мы можем это доказать.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="obisnenie">
+            <div class="container3">
+                <div class="item">
+                    <div class="text1">
+                        <p>Вы сразу увидите, какие<br>задания выполнили<br>правильно. Если вы не<br>выполните задание, мы<br>быстро покажем вам, как<br>улучшить результаты.</p><br><br><br>
+                        <h5>Каждый урок состоит из<br>заданий по теории, а также<br>тестов множественного<br>выбора.</h5>
+                    </div>
+                    <div class="image"><img src="img/laptop.png"></div>
+                    <div class="text2">
+                        <p>AlphaCamp мотивирует<br>вас запоминая, сколько<br>дней подряд вы<br>потратили на изучение<br>языка.</p><br><br><br><br>
+                        <h5>Учиться с AlphaCamp<br>весело и интересно</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="for_pupil">
+            <div class="container4">
+                <div class="item">
+                    <div class="browser">
+                        <img src="img/browser.png">
+                    </div>
+                    <div class="pupil_student">
+                        <h3>AlphaCamp для школьников и студентов</h3><br>
+                        <p>Самая популярная в мире платформа для изучения<br>задач на английском языке. Тысячи учителей по<br>всему миру уже используют AlphaCamp на своих<br>занятиях.</p>
+                        <a href="#"><img src="img/download-teaser.png" width="160px;"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="container5">
+                <h1> Если у вас есть вопросы<br>напишите нам  </h1>
+                <div class="input">
+                    <div class="input1">
+                        <input type="text" placeholder="Email" />
+                    </div>
+                    <div class="input2">
+                        <input type="text" placeholder="Text" />
+                    </div>
+                    <div class="otpravit">
+                        <span>Отправить</span>
+                    </div>
+                </div>
+                <div class="icons">
+                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="/js/main.js"></script>
