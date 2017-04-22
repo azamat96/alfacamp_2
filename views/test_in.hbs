@@ -29,26 +29,26 @@
 			
 			<div class="container2">
 			<div class="block">
-				<h1>
+				<h1 id="question">
 					<span style="font-weight:bold"></span>
 				</h1>
 			</div>
 
 			<div class="sub">
 				<div class="sub_block">
-					<h1>log10(32)</h1>
+					<h1></h1>
 				</div>
 				<div class="sub_block">
-					<h1>log10(35)</h1>
+					<h1></h1>
 				</div>
 			</div>
 			
 			<div class="sub2">
 				<div class="sub_block">
-					<h1>log10(5)</h1>
+					<h1></h1>
 				</div>
 				<div class="sub_block">
-					<h1>log10(12)</h1>
+					<h1></h1>
 				</div>
 			</div>
 
@@ -70,6 +70,7 @@
         var tests=[];
         var index=0;
         var score=0;
+        var score_arr = new Array(10).fill(null);
         $.ajax({
             type: 'POST',
             url: '/test_in',
@@ -92,7 +93,7 @@
         });
 
         $("#two").click(function () {
-            console.log('TWO: '+score);
+            console.log("Score: "+score);
             if(index==9){
                 //console.log('Redirect');
                 $.cookie('top_id', top_id, { path: '/' });
@@ -113,7 +114,9 @@
             $(".sub_block").eq(1).find("h1").text(tests[index].b);
             $(".sub_block").eq(2).find("h1").text(tests[index].c);
             $(".sub_block").eq(3).find("h1").text(tests[index].d);
-            $(".block").find("h1").html("<h1><span style='font-weight:bold'>"+(index+1)+".</span>"+tests[index].question+"</h1>");
+            //$(".block").find("h1").html("<h1><span style='font-weight:bold'>"+(index+1)+".</span>"+tests[index].question.toString()+"</h1>");
+            $("#question").html("<h1><span style='font-weight:bold'>"+(index+1)+".</span>"+tests[index].question.toString()+"</h1>");
+
             console.log("Aza NextTest: "+index);
         };
 
@@ -121,14 +124,20 @@
             //console.log($(this).find("h1").text()+" =AZA="+index+"|"+tests[index].correct);
             if($(this).find("h1").text()==tests[index].correct){
                 $(this).css("border", "3px solid green");
-                score+=10;
-            } else{
+                if(score_arr[index]==null){
+                    score_arr[index]=10;
+                    score+=10;
+                }
+                //console.log(score_arr);
+                //score+=10;
+            } else {
                 $(this).css("border", "3px solid red");
-                for(var i=0;i<4;i++){
-                    if($(".sub_block").eq(i).text().trim()==tests[index].correct.trim()){
+                for (var i = 0; i < 4; i++) {
+                    if ($(".sub_block").eq(i).text().trim() == tests[index].correct.trim()) {
                         $(".sub_block").eq(i).css("border", "3px solid green");
                     }
                 }
+                score_arr[index] = 0;
             }
         });
 
@@ -185,8 +194,22 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+    /*==========================*/
+    sub ,sup {
+        font-size:20px;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+    /*==========================*/
 
-.container{
+    .container{
 	width: 1050px;
 	margin: 0 auto;
 }

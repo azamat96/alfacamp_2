@@ -9,6 +9,34 @@ router.get('/login',function (req, res, next) {
     res.render('admin/login');
 });
 
+router.post('/login',function (req, res, next) {
+    if (!req.body.email || !req.body.password){
+        return res.render("admin/login", {success: false, msg: "Заполните все поля"});
+    }
+    else if(req.body.email=='aza' && req.body.password=='aza'){
+        return res.cookie('email', 'aza').send('cookie set');
+    }
+    res.render('admin/login', {success: false, msg: "Такого ползователя нет"});
+});
+
+var checkCookie = function (req, res, next) {
+    if(req.cookies.email !=null && req.cookies.email=='aza') {
+        // User.findById(req.cookies.uid, function (err, user) {
+        //     if (err) return res.redirect('/');
+        //     if (!user) {
+        //         return res.redirect('/');
+        //     }
+        //     next();
+        // });
+        next();
+    } else{
+        return res.redirect('/admin/login');
+    }
+};
+
+router.use(checkCookie);
+
+
 /*================= GET home page. ====================*/
 router.get('/', function(req, res, next) {
     res.render('admin/main');
@@ -54,6 +82,12 @@ router.post('/subject/:id', function (req, res, next) {
 router.get('/subject/:id/del', function (req, res, next) {
     Subject.findByIdAndRemove(req.params.id, function (err, response) {
         if(err) return next(err);
+        response.topics.forEach(function (id) {
+            Topic.delTopic(id, function (err, topic) {
+                if (err) return next(err);
+                //res.redirect('/admin/topic');
+            });
+        });
         res.redirect('/admin/subject');
     });
 });
@@ -71,6 +105,7 @@ router.get('/topic', function (req, res, next) {
 
 /*=========INSERT Topic========*/
 router.post('/topic', function (req, res, next) {
+    //console.log(req.body);
     Topic.addTopic(req, res, next, function (err, subject) {
         if(err) return next(err);
         console.log(subject);
@@ -97,13 +132,8 @@ router.post('/topic/:id', function (req, res, next) {
 
 /*========DELETE Topic=========*/
 router.get('/topic/:id/del', function (req, res, next) {
-    Topic.findByIdAndRemove(req.params.id, function (err, response) {
-        if(err) return next(err);
-        response.tests.forEach(function (id) {
-            Test.findByIdAndRemove(id, function (err, response) {
-                if(err) return next(err);
-            });
-        });
+    Topic.delTopic(req.params.id, function (err, topic) {
+        if (err) return next(err);
         res.redirect('/admin/topic');
     });
 });

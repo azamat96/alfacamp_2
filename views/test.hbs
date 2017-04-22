@@ -2,7 +2,7 @@
 <head>
 	<title>AlphaCamp</title>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="/js/jquery.cookie.js"></script>
 </head>
@@ -28,26 +28,20 @@
                     </div>
 				</div>
 			</div>
-			
-			<div class="block">
-                {{# each subject.topics}}
-                    {{# if @first}}
-                        <a href="/test_in/{{../subject._id}}/{{_id}}" style="text-decoration:none"><div class="circle one">
-                            <img src="/img/books.svg" width="45px">
-                            <h1>{{name}}</h1>
-                        </div></a>
-                    {{else}}
-                    <div class="all">
-                        <a href="/test_in/{{../subject._id}}/{{_id}}" style="text-decoration:none"><div class="circle two">
-                            <img src="/img/books.svg" width="45px">
-                            <h1>{{name}}</h1>
-                        </div></a>
-                    </div>
-                    {{/if}}
 
-                {{/each}}
-				</div>
-			</div>
+        <div class="block">
+            <div class="container2">
+                <div class="one">
+        {{# each subject.topics}}
+            <a href="/test_in/{{../subject._id}}/{{_id}}" style="text-decoration:none" class="two"><div class="circle">
+                        <img src="/img/books.svg" width="45px">
+                        <h1>{{name}}</h1>
+                    </div></a>
+        {{/each}}
+                </div>
+            </div>
+        </div>
+
 		</div>
 </body>
 </html>
@@ -206,32 +200,18 @@ table {
 	margin: 0 auto;
 }
 
-.one{
-	position: relative;
-	top: 70px;
-}
-
-.one img, .two img, .three img{
+.one img{
 	position: relative;
 	left: 28px;
 	top: 28px;
 }
 
-.one h1, .two h1, .three h1{
+.one h1{
 	text-align: center;
 	margin-top: 65px;
 	font-size: 18px;
 	color: #000;	
 }
-
-.all{
-	display: flex;
-	justify-content: space-between;	
-	width: 450px;
-	margin: 0 auto;
-	padding-top: 150px;
-}
-
 
 .button {
     position: relative;
@@ -263,4 +243,17 @@ table {
     display: block;
 }
 
+.container2{
+    width: 400px;
+    margin: 0 auto;
+}
+.two{
+    padding-top: 70px;
+    margin-left: 65px;
+}
+
+.one a{
+    display: inline-block;
+    vertical-align: middle;
+}
 </style>

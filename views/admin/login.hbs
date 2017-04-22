@@ -1,8 +1,9 @@
 <div class="main">
-	<img src="/images/logo.png" class="logo little">
+	<img src="/img/alphacamp.png" class="logo little">
 	<div class="form">
-		<form>
-			<input type="email" name="email" class="inputs" placeholder="email"><br>
+		<form action="/admin/login" method="post">
+            <p style="color: red">{{msg}}</p>
+			<input type="text" name="email" class="inputs" placeholder="email"><br>
 			<input type="password" name="password" class="inputs" placeholder="password"><br>
 			<input type="submit" name="" value="Sign in" class="log_button">
 		</form>
