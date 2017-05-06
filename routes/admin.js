@@ -4,6 +4,10 @@ var Subject = require('../models/subject');
 var Topic = require('../models/topic');
 var Counter = require('../models/counter');
 var Test = require('../models/test');
+var multer = require('multer');
+var upload = multer({dest: 'public/uploads/'});
+var fs = require('fs');
+
 
 router.get('/login',function (req, res, next) {
     res.render('admin/login');
@@ -14,7 +18,7 @@ router.post('/login',function (req, res, next) {
         return res.render("admin/login", {success: false, msg: "Заполните все поля"});
     }
     else if(req.body.email=='aza' && req.body.password=='aza'){
-        return res.cookie('email', 'aza').send('cookie set');
+        return res.cookie('email', 'aza').redirect('/admin');
     }
     res.render('admin/login', {success: false, msg: "Такого ползователя нет"});
 });
@@ -36,28 +40,22 @@ var checkCookie = function (req, res, next) {
 
 router.use(checkCookie);
 
-
 /*================= GET home page. ====================*/
 router.get('/', function(req, res, next) {
-    res.render('admin/main');
-});
-
-/*================= SUBJECTS. ====================*/
-router.get('/subject', function (req, res, next) {
     Subject.find({}).select('name').exec(function (err, subject) {
         if (err) return next(err);
-        res.render('admin/subject', {subject: subject});
+        res.render('admin/index', {subject: subject});
     });
 });
 
 /*=========INSERT Subject========*/
 router.post('/subject', function (req, res, next) {
-    var subject = new Subject();
-    subject.name = req.body.name;
-    subject.subject_id = Counter.getNextSeq('subject_id');
+    var subject = new Subject(req.body);
+    //subject.name = req.body.name;
+    //subject.subject_id = Counter.getNextSeq('subject_id');
     subject.save(function(err, subject){
         if(err) next(err);
-        res.redirect('/admin/subject');
+        res.redirect('/admin');
     });
 });
 
@@ -88,7 +86,7 @@ router.get('/subject/:id/del', function (req, res, next) {
                 //res.redirect('/admin/topic');
             });
         });
-        res.redirect('/admin/subject');
+        res.redirect('/admin');
     });
 });
 
@@ -105,17 +103,21 @@ router.get('/topic', function (req, res, next) {
 
 /*=========INSERT Topic========*/
 router.post('/topic', function (req, res, next) {
-    //console.log(req.body);
     Topic.addTopic(req, res, next, function (err, subject) {
         if(err) return next(err);
         console.log(subject);
-        res.redirect('/admin/topic');
+        if(req.body.sub!=null){
+            res.redirect('/admin/subject/'+req.body.subject_id);
+        } else {
+            res.redirect('/admin/topic');
+        }
     });
 });
 
 /*=========MORE INFO Topic=======*/
 router.get('/topic/:id', function (req, res, next) {
-    Topic.findById(req.params.id).populate('tests').exec(function (err, topic) {
+    Topic.findById(req.params.id,"-__v").populate(
+        [{path:'tests', select:'question'}, {path:'subject_id', select:'name'}]).exec(function (err, topic) {
         if (err) return next(err);
         res.render('admin/topic_in', {topic: topic});
     });
@@ -134,15 +136,31 @@ router.post('/topic/:id', function (req, res, next) {
 router.get('/topic/:id/del', function (req, res, next) {
     Topic.delTopic(req.params.id, function (err, topic) {
         if (err) return next(err);
-        res.redirect('/admin/topic');
+        if(req.query.sub!=null){
+            res.redirect('/admin/subject/'+topic.subject_id);
+        } else {
+            res.redirect('/admin/topic');
+        }
     });
 });
 
 /*=====================INSERT TEST====================*/
 router.post('/test/:id', function (req, res, next) {
-    Test.addTest(req, res, next, function (err, topic) {
+    // Test.addTest(req, res, next, function (err, topic) {
+    //     if(err) return next(err);
+    //     res.redirect('/admin/topic/'+req.params.id);
+    // });
+    var test = new Test(req.body);
+    test.save(function (err , test) {
         if(err) return next(err);
-        res.redirect('/admin/topic/'+req.params.id);
+        Topic.findById(req.params.id, function (err, topic) {
+            if (err) throw err;
+            //console.log(topic);
+            topic.tests.push(test._id);
+            topic.save(function (err, topic) {
+                res.redirect("/admin/topic/"+req.params.id);
+            });
+        });
     });
 });
 
@@ -165,10 +183,25 @@ router.post('/test/:id/:tid', function (req, res, next) {
 
 /*=======DELETE Test=========*/
 router.get('/test/:id/del/:tid', function (req, res, next) {
-    Test.delTest(req.params.id, req.params.tid,function (err) {
-        if(err) return next(err);
-        res.redirect('/admin/topic/'+req.params.tid);
+    // Test.delTest(req.params.id, req.params.tid,function (err) {
+    //     if(err) return next(err);
+    //     res.redirect('/admin/topic/'+req.params.tid);
+    // });
+    Test.findByIdAndRemove(req.params.id, function (err, test) {
+        if (err) throw err;
+        Topic.findById(req.params.tid, function (err, topic) {
+            if(err) throw err;
+            //console.log(topic);
+            topic.tests.remove(req.params.id);
+            topic.save(function (err, topic) {
+                res.redirect('/admin/topic/'+req.params.tid);
+            });
+        });
     });
+});
+
+router.get('/logout',function (req, res, next) {
+    return res.clearCookie('email').redirect('/admin/login');
 });
 
 module.exports = router;

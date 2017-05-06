@@ -1,0 +1,301 @@
+<html>
+<head>
+	<title>AlphaCamp</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
+</head>
+<body>
+	<div id="wrapper">
+			<div id="header">
+				<div class="container">
+					<div class="logo">
+						<a href="/" style="text-decoration: none;"><p>AlphaCamp</p></a>
+						<a href="/test" style="text-decoration: none;" class="select test">Тест</a>
+						<a href="/theory" style="text-decoration: none;" class="select theo">Теория</a>
+					</div>
+					<div class="button">
+						<span><img src="" width="40px"></span>
+						<span id="username"></span>
+						<span><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+						<div class="dropdown-content">
+							<a href="/profile">Настройки</a>
+						    <a id="logout">Выйти</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="container">
+				<div class="profile_div">
+					<img src="/img/man.svg" width="100px" id="man">
+					<p>Azamat</p>
+					<div class="text">
+						<div>
+						<h1>Математика</h1>
+						<span>350</span><img src="/img/trophy.svg" width="45">
+						</div>
+						<div>
+						<h1>Физика</h1>
+						<span>250</span><img src="/img/trophy.svg" width="45">
+						</div>
+						<div>
+						<h1>Физика</h1>
+						<span>250</span><img src="/img/trophy.svg" width="45">
+						</div>
+					</div>
+				</div>
+				<div class="score_div">
+					<a href="/profile"><h1>Профиль</h1></a>
+					<a href="/account"><h2>Аккаунт</h2></a>
+					<a href="/password"><h2>Пароль</h2></a>
+				</div>
+			</div>
+		
+		</div>
+</body>
+</html>
+<script src="/js/secondary.js"></script>
+
+<style type="text/css">	
+
+@font-face {
+    font-family: 'Lobster';
+    src: url('/font-awesome/3952.ttf')  format('truetype');
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+	font-family: arial;
+	background-color: #EBEBEB;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.container{
+	width: 1050px;
+	margin: 0 auto;
+
+}
+
+#header{
+	position: absolute;
+	left: 0;
+	right: 0;
+	width: 100%;
+	color: #fff;
+	background-color: #20A8E9;
+}
+.button{
+	float: right;
+	display: table;
+
+}
+
+.logo p{
+	font-family: Lobster;
+	font-size: 40px;
+	color: #fff;
+	vertical-align: middle;
+	display: table-cell;
+	padding-right: 30px;
+
+}
+.logo{
+	float: left;
+	display: table;
+}
+
+.select{
+	color: #fff;
+	vertical-align: middle;
+	display: table-cell;
+	position: relative;
+	top: 3px;
+	font-size: 18px;
+}
+
+.test{
+	width: 80px;
+	text-align: center;
+	border-radius: 40px;
+}
+
+.theo{
+	position: relative;
+	left: 25px;	
+	width: 100px;
+	text-align: center;
+	border-radius: 40px;
+}
+
+.theo:hover{
+	background-color: #1493D1;
+}
+
+.test:hover{
+	background-color: #1493D1;
+}
+
+
+.button img {
+  vertical-align: middle;
+  display: table-cell;
+
+}
+.button span {
+  vertical-align: middle;
+  display: table-cell;
+  padding-left: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+
+.logo, .button{
+	padding: 20px;
+}
+
+
+.button {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.dropdown-content a {
+    color: #666666;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 15px;
+}
+
+.dropdown-content a:hover {background-color: #e6e6e6; border-radius: 10px;}
+
+.button:hover .dropdown-content {
+    display: block;
+}
+
+.profile_div{
+	float: left;
+	background-color: #fff;
+	width: 650px;
+	height: 350px;
+	margin: 0 auto;
+	position: relative;
+	top: 120px;
+	border-radius: 10px;
+	text-align: center;
+}
+
+#man{
+	padding-top: 40px;
+}
+
+.profile_div p{
+	font-size: 28px;
+	padding-top: 20px;
+	color: #333333;
+}
+
+.score_div{
+	float: right;
+	background-color: #fff;
+	width: 320px;
+	height: 280px;
+	margin: 0 auto;
+	position: relative;
+	top: 120px;
+	border-radius: 10px;
+}
+
+.score_div h1{
+	font-size: 18px;
+	background-color: #d2d2d2;
+	padding: 15 20 ;
+	border-radius: 60px;
+	width: 225px;
+	margin: 20 0 0 30 ;	
+}
+
+.score_div a{
+	text-decoration: none;
+	color: #000;
+}
+
+.score_div h2{
+	font-size: 18px;
+	padding: 15 20 ;
+	border-radius: 60px;
+	width: 225px;
+	margin: 5 0 0 30 ;	
+}
+
+.score_div h2:hover{
+	background-color: #d2d2d2;
+}
+
+.text{
+	display: flex;
+	justify-content: space-between;	
+	width: 450px;
+	margin: 0 auto;
+	font-size: 22px;
+	padding-top: 30px;
+}
+
+.text img{
+	position: relative;
+	top: 5px;
+}
+</style>

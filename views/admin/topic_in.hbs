@@ -1,57 +1,199 @@
-<h2><a href="/admin/topic"> Back to Topics</a></h2>
-<form method="post" action="/admin/topic/{{topic._id}}">
-    <span>ID: </span>
-    <span style="font-weight:bold">{{topic._id}}</span><br>
 
-    <span>name: </span>
-    <input value="{{topic.name}}" name="name"><br>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>Admin | Alfacamp.ml</title>
+    <link rel="stylesheet" href="/css/style_admin.css" type="text/css" media="all" />
+</head>
+<body>
+<!-- Header -->
+<div id="header">
+    <div class="shell">
+        <!-- Logo + Top Nav -->
+        <div id="top">
+            <h1><a href="/admin">Admin</a> | <a href="/">Alfacamp.ml</a></h1>
+            <div id="top-navigation">
+                Welcome <a href="/admin"><strong>Administrator</strong></a>
+                <span>|</span>
+                <a href="/admin/logout">Log out</a>
+            </div>
+        </div>
+        <!-- End Logo + Top Nav -->
 
-    <span>This topic in Subject: {{topic.subject_id}}</span><br>
+        <!-- Main Nav -->
+        <div id="navigation">
+            <ul>
+                <li><a href="/admin"><span>Subjects</span></a></li>
+                <li><a href="/admin/topic" class="active"><span>Topics</span></a></li>
+            </ul>
+        </div>
+        <!-- End Main Nav -->
+    </div>
+</div>
+<!-- End Header -->
 
-    <span>theory: </span>
-    <textarea name="theory" style="width:900px;height:200px">{{topic.theory}}</textarea><br>
-    <span>tests: </span><br>
-    <ul>
-        {{# if topic.tests}}
-            {{#each topic.tests}}
-                <li>
-                    <a href="/admin/test/{{this._id}}/{{../topic._id}}">{{this.question}}</a>
-                    <a href="/admin/test/{{this._id}}/del/{{../topic._id}}" style='float:right; margin-left: 10px'>delete</a>
-                </li>
-            {{/each}}
-        {{else}}
-            <span>No Tests in this Topic</span>
-        {{/if}}
+<!-- Container -->
+<div id="container">
+    <div class="shell">
 
-    </ul>
+        <!-- Small Nav -->
+        <div class="small-nav">
+            <a href="/admin/topic">Topics</a>
+            <span>&gt;</span>
+            Current Topic
+        </div>
+        <!-- End Small Nav -->
 
-    <button type="submit" >Update</button>
-    <a href="/admin/topic/{{topic._id}}/del" style="margin-left:20px">Delete this Topic</a> <br>
-</form>
+        <!-- Message OK -->
+        <div class="msg msg-ok">
+            <p><strong>Your file was uploaded succesifully!</strong></p>
+            <a href="#" class="close">close</a>
+        </div>
+        <!-- End Message OK -->
 
-<form method="post" action="/admin/test/{{topic._id}}" style="background-color: yellow;width: 300px">
-    <h2>Add Test</h2>
-    <span>Question: </span>
-    <textarea name="question" style="width: 300px;height: 50px  "></textarea><br>
-    <span>A: </span>
-    <input name="a"><br>
-    <span>B: </span>
-    <input name="b"><br>
-    <span>C: </span>
-    <input name="c"><br>
-    <span>D: </span>
-    <input name="d"><br>
-    <span>Correct: </span>
-    <input name="correct"><br>
-    <button type="submit" >Add Test</button>
-</form>
-<style type="text/css">
-    li{
-        list-style-type: none;
-        background-color: pink;
-        max-width: 900px;
-        padding: 5px;
-        margin: 5px;
-        min-height: 20px;
-    }
-</style>
+        <!-- Message Error -->
+        <div class="msg msg-error">
+            <p><strong>You must select a file to upload first!</strong></p>
+            <a href="#" class="close">close</a>
+        </div>
+        <!-- End Message Error -->
+        <br />
+        <!-- Main -->
+        <div id="main">
+            <div class="cl">&nbsp;</div>
+
+            <!-- Content -->
+            <div id="content">
+
+                <!-- Box -->
+                <div class="box">
+                    <!-- Box Head -->
+                    <div class="box-head">
+                        <h2 class="left">Current Topic</h2>
+                    </div>
+                    <!-- End Box Head -->
+                    <form action="/admin/topic/{{topic._id}}" method="post">
+
+                        <!-- Form -->
+                        <div class="form">
+                            <p>
+                                <label>Topic Name</label>
+                                <input type="text" value="{{topic.name}}" name="name" class="field size1" />
+                            </p>
+                            <p><label>Topic in subject: <a href="/admin/subject/{{topic.subject_id._id}}">{{topic.subject_id.name}}</a></label></p>
+                            <p>
+                                <label>Theory</label>
+                                <textarea class="field size1" rows="10" cols="30" name="theory">{{topic.theory}}</textarea>
+                            </p>
+                        </div>
+                        <!-- End Form -->
+                        <!-- Table -->
+                        <p style="font-weight: bold; margin-left: 10px;margin-bottom: 5px;font-size: 14px"><label>Tests:</label></p>
+                        {{# if topic.tests}}
+                        <div class="table">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <th>Title</th>
+                                    <th width="110" class="ac">Content Control</th>
+                                </tr>
+
+                                {{#each topic.tests}}
+                                    <tr>
+                                        <td><h3><a href="/admin/test/{{this._id}}/{{../topic._id}}">{{this.question}}</a></h3></td>
+                                        <td><a href="/admin/test/{{this._id}}/del/{{../topic._id}}" class="ico del">Delete</a>
+                                            <a href="/admin/test/{{this._id}}/{{../topic._id}}" class="ico edit">Edit</a></td>
+                                    </tr>
+                                {{/each}}
+                            </table>
+
+                        </div>
+                        <!-- Table -->
+                        {{else}}
+                            <div class="form">
+                                <p><label>No Tests in this Topic</label></p>
+                            </div>
+                        {{/if}}
+
+                        <!-- Form Buttons -->
+                        <div class="buttons">
+                            <a href="/admin/topic/{{topic._id}}/del"><input type="button" class="button" value="Delete Topic" /></a>
+                            <input type="submit" class="button" value="Update Topic" type="submit" />
+                        </div>
+                        <!-- End Form Buttons -->
+                    </form>
+                </div>
+                <!-- End Box -->
+
+                <!-- Box -->
+                <div class="box">
+                    <!-- Box Head -->
+                    <div class="box-head">
+                        <h2>Add New Test (to this Topic)</h2>
+                    </div>
+                    <!-- End Box Head -->
+
+                    <form action="/admin/test/{{topic._id}}" method="post" id="addtopic">
+
+                        <!-- Form -->
+                        <div class="form">
+                            <p>
+                                <label>Question:</label>
+                                <input type="text" name="question" class="field size1" />
+                            </p>
+                            <p>
+                                <label>A:</label>
+                                <input type="text" name="a" class="field size3" />
+                            </p>
+                            <p>
+                                <label>B:</label>
+                                <input type="text" name="b" class="field size3" />
+                            </p>
+                            <p>
+                                <label>C:</label>
+                                <input type="text" name="c" class="field size3" />
+                            </p>
+                            <p>
+                                <label>D:</label>
+                                <input type="text" name="d" class="field size3" />
+                            </p>
+                            <p>
+                                <label>Correct:</label>
+                                <input type="text" name="correct" class="field size3" />
+                            </p>
+
+                        </div>
+                        <!-- End Form -->
+
+                        <!-- Form Buttons -->
+                        <div class="buttons">
+                            <input type="submit" class="button" value="Add Test" />
+                        </div>
+                        <!-- End Form Buttons -->
+                    </form>
+                </div>
+                <!-- End Box -->
+
+            </div>
+            <!-- End Content -->
+
+            <div class="cl">&nbsp;</div>
+        </div>
+        <!-- Main -->
+    </div>
+</div>
+<!-- End Container -->
+
+<!-- Footer -->
+<div id="footer">
+    <div class="shell">
+        <span class="left">&copy; 2017 - AlfaCamp</span>
+        <span class="right">
+			Design by <a href="http://alfacamp.ml" target="_blank">Alfacamp.ml</a>
+		</span>
+    </div>
+</div>
+<!-- End Footer -->
+
+</body>
+</html>

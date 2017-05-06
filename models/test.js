@@ -18,6 +18,7 @@ module.exports.addTest = function (req, res, next, callback) {
     test.save(function (err , test) {
         if(err) return next(err);
         Topic.findById(req.params.id, function (err, topic) {
+            if (err) throw err;
             console.log(topic);
             topic.tests.push(test._id);
             topic.save(callback);
