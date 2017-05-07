@@ -12,12 +12,12 @@
 				<div class="container">
 					<div class="logo">
 						<a href="/" style="text-decoration: none;"><p>AlphaCamp</p></a>
-						<a href="/test" style="text-decoration: none;" class="select test">Тест</a>
-						<a href="/theory" style="text-decoration: none;" class="select theo">Теория</a>
+						<a href="/selectSubject" style="text-decoration: none;" class="select test">Тест</a>
+						<a href="/selectSubject" style="text-decoration: none;" class="select theo">Теория</a>
 					</div>
 					<div class="button">
-						<span><img src="/img/man.svg" width="40px"></span>
-						<span>Azamat</span>
+						<span><img src="" width="40px"></span>
+						<span id="username"></span>
 						<span><i class="fa fa-angle-down" aria-hidden="true"></i></span>
 						<div class="dropdown-content">
 							<a href="/profile">Настройки</a>
@@ -29,14 +29,17 @@
 			
 			<div class="container">
 				<div class="profile_div">
+                    <form action="/updateAccount" method="post" enctype="multipart/form-data">
 					<div class="text">
 						<h1>Настройки аккаунта</h1>
-						<h2>Сохранить изменения</h2>
+                        <input type="submit" id="save" value="Сохранить изменения">
 					</div>
-					<span>Имя пользователя</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="form1"><br><br>
-					<span>Электронная почта</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="form1"><br><br>
-					<span>Картинка профиля</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="file" id="form2">
-				</div>
+                        <p style="color: #00CC00">{{msg}}</p>
+					<span>Имя пользователя</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="username" id="uname" class="form1"><br><br>
+					<span>Электронная почта</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="email" id="mail" class="form1"><br><br>
+					<span>Картинка профиля</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="file" name="myimage" accept="image/*" id="form2">
+                    </form>
+                </div>
 				<div class="score_div">
 					<a href="/profile"><h2>Профиль</h2></a>
 					<a href="/account"><h1>Аккаунт</h1></a>
@@ -48,8 +51,51 @@
 </body>
 </html>
 <script src="/js/secondary.js"></script>
-<style type="text/css">	
+<script>
+    $(document).ready(function() {
+        document.getElementsByName("username")[0].value = $.cookie('username');
+        document.getElementsByName("email")[0].value = $.cookie('email');
+    });
 
+    function encodeImageFileAsURL() {
+        var filesSelected = document.getElementById("form2").files;
+        if (filesSelected.length > 0) {
+            var fileToLoad = filesSelected[0];
+            var fileReader = new FileReader();
+
+            fileReader.onload = function (fileLoadedEvent) {
+                var srcData = fileLoadedEvent.target.result; // <--- data: base64
+                var data = {};
+                data.username = $('#uname').val();
+                data.email = $('#mail').val();
+                data.img = srcData;
+                $.ajax({
+                    type: 'POST',
+                    url: '/updateAccount',
+                    data: data,
+                    success: function (data, status) {
+                        if (data.success) {
+                            //window.location.replace("/account");
+                            console.log(data);
+                        }
+                        else {
+                            console.log("errroorrr");
+                        }
+                    },
+                    error: function (err) {
+                        //localStorage.err = err.responseJSON.msg;
+                    }
+                });
+            }
+            fileReader.readAsDataURL(fileToLoad);
+        }
+
+    }
+</script>
+
+<div id="imgTest"></div>
+
+<style type="text/css">
 @font-face {
     font-family: 'Lobster';
     src: url('/font-awesome/3952.ttf')  format('truetype');
@@ -232,7 +278,7 @@ table {
 	font-size: 24px;
 }
 
-.profile_div h2{
+.profile_div #save{
 	background-color: #7eb530;
 	padding: 10 15 ;
 	border-radius: 20px;
@@ -297,7 +343,7 @@ table {
 	padding-bottom: 50px;
 }
 
-#form1{
+.form1{
 	width: 300px;
 	padding: 10 10;
 	border: 2px solid #d2d2d2;

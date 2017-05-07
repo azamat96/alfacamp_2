@@ -12,8 +12,8 @@
 				<div class="container">
 					<div class="logo">
 						<a href="/" style="text-decoration: none;"><p>AlphaCamp</p></a>
-						<a href="/test" style="text-decoration: none;" class="select test">Тест</a>
-						<a href="/theory" style="text-decoration: none;" class="select theo">Теория</a>
+						<a href="/selectSubject" style="text-decoration: none;" class="select test">Тест</a>
+						<a href="/selectSubject" style="text-decoration: none;" class="select theo">Теория</a>
 					</div>
 					<div class="button">
 						<span><img src="" width="40px"></span>
@@ -29,21 +29,15 @@
 			
 			<div class="container">
 				<div class="profile_div">
-					<img src="/img/man.svg" width="100px" id="man">
-					<p>Azamat</p>
+					<img src="{{user.image_path}}" width="100px" id="man">
+					<p id="username2">{{user.username}}</p>
 					<div class="text">
-						<div>
-						<h1>Математика</h1>
-						<span>350</span><img src="/img/trophy.svg" width="45">
+                    {{# each user.subjects}}
+                        <div>
+						<h1>{{this.subject.name}}</h1>
+						<span>{{this.sum}}</span><img src="/img/trophy.svg" width="45">
 						</div>
-						<div>
-						<h1>Физика</h1>
-						<span>250</span><img src="/img/trophy.svg" width="45">
-						</div>
-						<div>
-						<h1>Физика</h1>
-						<span>250</span><img src="/img/trophy.svg" width="45">
-						</div>
+					{{/each}}
 					</div>
 				</div>
 				<div class="score_div">

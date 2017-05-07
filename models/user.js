@@ -28,6 +28,14 @@ module.exports.createUser = function (newUser, callback) {
     });
 };
 
+module.exports.updatePassword = function (req, callback) {
+    bcrypt.genSalt(10, function(err, salt) {
+        bcrypt.hash(req.body.n_password, salt, function(err, hash) {
+            User.findByIdAndUpdate(req.cookies.uid, {password: hash},callback);
+        });
+    });
+};
+
 module.exports.getUserByEmail = function (email, callback) {
     var query = {email: email};
     User.findOne(query, callback);

@@ -30,7 +30,7 @@
         <div class="container">
             <h1>Добро пожаловать в AlphaCamp!</h1>
             <h2>Выбрать предмет...</h2>
-        </div>
+
 
         <div class="select">
             {{# each subjects}}
@@ -45,6 +45,7 @@
             <!--</div></a>-->
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>
@@ -169,12 +170,11 @@
         font-size: 40px;
     }
 
-    .select{
-        display: flex;
-        justify-content: space-between;
-        width: 480px;
-        margin: 0 auto;
-        padding-top: 50px;
+    .select a{
+        display: inline-block;
+        vertical-align: middle;
+        padding: 50px 0;
+        width: 250px;
     }
 
     .math{

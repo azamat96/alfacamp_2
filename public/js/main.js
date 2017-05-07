@@ -54,6 +54,7 @@ $(document).ready(function() {
                     $.cookie('uid', data.uid);
                     $.cookie('username', data.username);
                     $.cookie('image_path', data.image_path);
+                    $.cookie('email', data.email);
                     window.location.replace("/selectSubject");
                 }
                 else {

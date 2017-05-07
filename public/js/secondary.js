@@ -6,7 +6,11 @@ $(document).ready(function() {
         $.removeCookie('uid', {path: '/'});
         $.removeCookie('image_path', {path: '/'});
         $.removeCookie('username', {path: '/'});
+        $.removeCookie('email', {path: '/'});
         window.location.replace("/");
     });
+
+    // $("#man").attr("src", $.cookie('image_path'));
+    // $("#username2").text($.cookie('username'));
 });
 

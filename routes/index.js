@@ -3,6 +3,23 @@ var router = express.Router();
 var User = require('../models/user');
 var Subject = require('../models/subject');
 var Topic = require('../models/topic');
+var randomstring = require("randomstring");
+var fs = require('fs');
+var multer  = require('multer');
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, randomstring.generate({
+                length: 12,
+                charset: 'alphabetic',
+                capitalization: 'lowercase'
+            })+'.jpg')
+    }
+});
+var upload = multer({ storage: storage });
+//var upload = multer({ dest: 'public/uploads/' })
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -23,7 +40,7 @@ router.post('/user/login', function(req, res, next) {
         } else {
             User.comparePassword(req.body.password, user.password, function (err, isMatch) {
                 if(isMatch){
-                    return res.send({success: true, uid: user._id, username: user.username, image_path: user.image_path});
+                    return res.send({success: true, uid: user._id, username: user.username, image_path: user.image_path, email: user.email});
                 } else{
                     return res.send({success: false, msg: 'Неправильный пороль'});
                 }
@@ -123,15 +140,66 @@ router.get('/theory_in/:sub_id/:top_id', function(req, res, next) {
 });
 
 router.get('/profile', function (req, res, next) {
-    res.render('profile');
+    User.getUserById(req.cookies.uid, function (err, user) {
+        if(err) return next(err);
+        res.render('profile',{user: user});
+        console.log(user);
+    });
 });
 
 router.get('/account', function (req, res, next) {
     res.render('account');
 });
 
+function base64_decode(base64str, file) {
+    // create buffer object from base64 encoded string, it is important to tell the constructor that the string is base64 encoded
+    var bitmap = new Buffer(base64str, 'base64');
+    // write buffer to file
+    fs.writeFileSync(file, bitmap);
+}
+
+router.post('/updateAccount', upload.any(), function (req, res, next) {
+    var img = {username: req.body.username, email: req.body.email};
+    if(req.files[0]){
+        var suret = '/uploads/'+req.files[0].filename;
+        img = {image_path: suret, username: req.body.username, email: req.body.email};
+    }
+    User.findByIdAndUpdate(req.cookies.uid, img, function (err, user) {
+        if(err) return next(err);
+        console.log(user);
+        res.cookie('email', img.email);
+        res.cookie('username', img.username);
+        if(img.image_path){
+            res.cookie('image_path', img.image_path);
+        }
+        res.render('account', {msg: 'Изменения приняты'});
+    });
+});
+
 router.get('/password', function (req, res, next) {
     res.render('password');
+});
+
+router.post('/updatePassword', function (req, res, next) {
+    console.log(req.body);
+    if(!req.body.c_password || !req.body.n_password){
+        return res.redirect('/password');
+    }else {
+        User.findById(req.cookies.uid, function (err, user) {
+            if (err) return next(err);
+            User.comparePassword(req.body.c_password, user.password, function (err, isMatch) {
+                if (isMatch) {
+                    User.updatePassword(req, function (err, user) {
+                        if(err) return next(err);
+                        res.render('password', {msg: 'Пороль изменен'});
+                    });
+                } else {
+                    return res.send({success: false, msg: 'Неправильный пороль'});
+                }
+            });
+
+        });
+    }
 });
 
 module.exports = router;
