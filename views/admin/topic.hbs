@@ -60,7 +60,7 @@
                 <div class="box">
                     <!-- Box Head -->
                     <div class="box-head">
-                        <h2 class="left">Current Subjects</h2>
+                        <h2 class="left">Topics</h2>
                     </div>
                     <!-- End Box Head -->
 
@@ -78,7 +78,7 @@
                                     <td><h3><a href="/admin/topic/{{this._id}}">{{this.name}}</a></h3></td>
                                     <!--<td>12.05.09</td>-->
                                     <!--<td><a href="#">Administrator</a></td>-->
-                                    <td><a href="/admin/topic/{{this._id}}/del" class="ico del">Delete</a><a href="#" class="ico edit">Edit</a></td>
+                                    <td><a href="/admin/topic/{{this._id}}/del" class="ico del">Delete</a><a href="/admin/topic/{{this._id}}" class="ico edit">Edit</a></td>
                                 </tr>
                             {{/each}}
                         </table>
@@ -140,17 +140,8 @@
     </div>
 </div>
 <!-- End Container -->
-
-<!-- Footer -->
-<div id="footer">
-    <div class="shell">
-        <span class="left">&copy; 2017 - AlfaCamp</span>
-        <span class="right">
-			Design by <a href="http://alfacamp.ml" target="_blank">Alfacamp.ml</a>
-		</span>
-    </div>
-</div>
-<!-- End Footer -->
-
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="/js/jquery.cookie.js"></script>
+<script src="/js/admin.js"></script>
 </body>
 </html>

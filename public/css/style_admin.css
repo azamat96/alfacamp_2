@@ -145,7 +145,7 @@ textarea.size1 { height:180px; }
 #footer a{ color:#fff; }
 
 
-.msg { position:relative; padding-right:35px; margin-bottom:10px; }
+.msg { position:relative; padding-right:35px; margin-bottom:10px; display: none}
 .msg p{ padding:9px 10px 9px 40px; font-size:12px; background-repeat:no-repeat; background-position:10px 5px;}
 .msg a.close{ font-size:0; line-height:0; position:absolute; top:0; right:0; width:34px; height:34px; background:url(images/close.gif); text-indent: -4000px;}
 
